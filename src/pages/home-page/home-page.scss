@@ -1,24 +1,32 @@
 .search-books {
-  margin-top: 100px;
+  margin-top: 75px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+ 
 
   .dropdown {
     margin-left: 10px;
     border: none;
     font-size: large;
+    
   }
 
   .input {
+    height: 40px;
     margin-left: 20px;
-    width: 20vw;
+    width: 30vw;
+    background-color: aliceblue;
+    border-radius: 10%;
   }
 }
 .most-readed {
-  
+  margin-top: 100px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content:center;
+  margin-bottom: 200px;
 }

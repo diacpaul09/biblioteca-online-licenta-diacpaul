@@ -48,15 +48,20 @@ const HomePage = () => {
 
     return (
         <div>
-            <div className="search-books">
-                <h3>Search by </h3>
+            <div
+                className="search-books"
+                style={{
+                    backgroundImage: `url(https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGlicmFyeSUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80)`
+                }}>
+                
                 <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic">
-                        {
+                        {/* {
                             searchByValue ?
                                 searchByValue :
                                 "Search by"
-                        }
+                        } */}
+                        Search by
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
@@ -71,7 +76,7 @@ const HomePage = () => {
                         }
                     </Dropdown.Menu>
                 </Dropdown>
-                <Input className="input" type="text" />
+                <Input color="primary" disableUnderline='true' className="input" type="text" placeholder={`${searchByValue}`}/>
             </div>
 
             <div className="most-readed">{books.map(book => (<Book key={book.id} author={book.author} title={book.title} price={book.price} image={book.image} />))}</div>

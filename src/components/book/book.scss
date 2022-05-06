@@ -1,74 +1,68 @@
-.book{
-    margin-top: 200px;
-.menu-item {
-  min-width: 30%;
-  height: 350px;
-  width: 250px;
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  
-  overflow: hidden;
+.book {
+  margin-left: 15px;
+  margin-right: 15px;
+  .menu-item {
+    min-width: 30%;
+    height: 350px;
+    width: 250px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 20%;
 
-  &:hover {
-    cursor: pointer;
+    overflow: hidden;
 
-    & .background-image {
-      transform: scale(1.1);
-      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    &:hover {
+      cursor: pointer;
+
+      & .background-image {
+        transform: scale(1.1);
+        transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      }
     }
 
-    & .content {
-      opacity: 0.9;
+    .background-image {
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
     }
   }
-
-  &:first-child {
-    margin-right: 7.5px;
-  }
-
-  &:last-child {
-    margin-left: 7.5px;
-  }
-
-  .background-image {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-  }
-}
-.content {
-  height: auto;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  border-top: none;
-  background-color: white;
-  opacity: 1;
-  position: absolute;
-  color: black;
-
-  .title {
-    font-weight: bold;
-    margin-bottom: 6px;
-    margin-top: 2px;
-    font-size: 15px;
+  .content {
+    height: 120px;
+    margin-bottom: 50px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 20%;
+    border-top: none;
+    background-color: white;
+    opacity: 1;
+    
     color: black;
-  }
 
-  .subtitle {
-    font-weight: lighter;
-    font-size: 16px;
-  }
+    .title {
+      font-weight: bold;
+      margin-bottom: 6px;
+      margin-top: 2px;
+      font-size: 15px;
+      color: black;
 
-  &:hover {
-    cursor: pointer;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-weight: lighter;
+      font-size: 16px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
-}
 }
