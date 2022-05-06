@@ -1,0 +1,24 @@
+.search-books {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .dropdown {
+    margin-left: 10px;
+    border: none;
+    font-size: large;
+  }
+
+  .input {
+    margin-left: 20px;
+    width: 20vw;
+  }
+}
+.most-readed {
+  
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

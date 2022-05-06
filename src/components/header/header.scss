@@ -1,0 +1,42 @@
+.header {
+  background-color: bisque;
+  padding: 10px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      padding-left: 20px;
+      width: 60px;
+      height: 100px;
+    }
+
+    .title-name {
+      margin-left: calc(50% - 60px);
+      transform: translateX(-50%);
+    }
+  }
+
+  
+  .buttons {
+    display: inline-flex;
+    
+    
+   
+
+    .sign-in-and-sign-up-and-sign-out{
+        justify-content: space-between;
+        display:inline-flex;
+        margin-left: auto;
+        
+    }
+    .button {
+      padding-left: 1vw;
+      padding-right: 1vw;
+    }
+  }
+}
