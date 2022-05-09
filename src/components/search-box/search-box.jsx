@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
 import { Input } from "@mui/material";
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
 import './search-box.scss'
 
-const SearchBox = () => {
-    const [searchByValue, setSearchByValue] = useState('');
+const SearchBox = ({ handleChangeSearchByValue, handleChangeSearchByType, searchByType }) => {
+
 
     const dropDownItems = [
         {
@@ -21,6 +21,8 @@ const SearchBox = () => {
             name: "Book name"
         }
     ];
+
+    
     return (<div
         className="search-books"
         style={{
@@ -29,7 +31,7 @@ const SearchBox = () => {
 
         <Dropdown>
             <Dropdown.Toggle id="dropdown-basic">
-               
+
                 Search by
             </Dropdown.Toggle>
 
@@ -37,7 +39,10 @@ const SearchBox = () => {
                 {
                     dropDownItems.map(
                         item => (
-                            <Dropdown.Item key={item.id} onClick={() => setSearchByValue(item.name)}>
+                            <Dropdown.Item
+                                key={item.id}
+                                onClick={() => handleChangeSearchByType(item.name)}
+                            >
                                 {item.name}
                             </Dropdown.Item>
                         )
@@ -45,8 +50,14 @@ const SearchBox = () => {
                 }
             </Dropdown.Menu>
         </Dropdown>
-        <Input color="primary" disableUnderline={true} className="input" type="text" placeholder={` ${searchByValue}`} />
-        
+        <Input
+            color="primary"
+            disableUnderline={true}
+            className="input" type="text"
+            placeholder={`${searchByType}`}
+            onChange={(e) => handleChangeSearchByValue(e.target.value)}
+        />
+
     </div>);
 }
 

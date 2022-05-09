@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from "react";
 import './home-page.scss'
 import firebase from "../../firebase/firebase.utils";
-import Book from "../../components/book/book";
+
 import SearchBox from "../../components/search-box/search-box";
 import BookList from "../../components/book-list/book-list";
 
 const HomePage = () => {
 
     const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    const [searchByValue, setSearchByValue] = useState('');
+    const [searchByType, setSearchByType] = useState('Book Name');
+
+    const handleChangeSearchByType = (value) => {
+        return setSearchByType(value);
+    }
+
+    const handleChangeSearchByValue = (value) => {
+        return setSearchByValue(value);
+    }
 
     const ref = firebase.firestore().collection("books");
 
-
-
     function getSchools() {
-        setLoading(true);
+
         ref.onSnapshot((querySnapshot) => {
             const items = [];
             querySnapshot.forEach((doc) => {
                 items.push({ id: doc.id, ...doc.data() });
             });
             setBooks(items);
-            setLoading(false);
+
         });
     }
 
@@ -35,8 +43,14 @@ const HomePage = () => {
 
     return (
         <div className="home-page">
-            <SearchBox books={books} />
-            <BookList books={books} />
+            <SearchBox
+                handleChangeSearchByValue={handleChangeSearchByValue}
+                handleChangeSearchByType={handleChangeSearchByType}
+                searchByType={searchByType}
+            />
+
+
+            <BookList books={books} searchByValue={searchByValue} searchByType= {searchByType} />
         </div>
     )
 }

@@ -1,6 +1,11 @@
 .book {
   margin-left: 15px;
   margin-right: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+
   .menu-item {
     min-width: 30%;
     height: 350px;
@@ -31,7 +36,10 @@
     }
   }
   .content {
-    height: 120px;
+    height: 100%;
+    flex-grow: 1;
+    padding: 10px 0;
+    margin-top: 10px;
     margin-bottom: 50px;
     width: 250px;
     display: flex;

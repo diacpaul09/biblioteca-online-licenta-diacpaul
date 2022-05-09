@@ -2,7 +2,7 @@ import React from "react";
 
 import './book.scss'
 
-const Book = ({ author, title, price, image }) => {
+const Book = ({ author, title, price, image, genre }) => {
 
     return (
         <div className="book">
@@ -19,6 +19,7 @@ const Book = ({ author, title, price, image }) => {
                 <h1 className='title'>{title}</h1>
                 <div>{author}</div>
                 <div>${price}</div>
+                <div>{genre}</div>
                 <span className='subtitle'>Read NOW</span>
             </div>
         </div>)

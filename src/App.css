@@ -1,5 +1,5 @@
 body{
-  font-family: 'Fira Sans Condensed';
+  
   padding: 20px 80px;
 }
 a{
@@ -8,15 +8,9 @@ a{
 }
 *{
   box-sizing: border-box;
-}
-body{
   font-family: 'Fira Sans Condensed';
-  padding: 20px 80px;
 }
-a{
-  text-decoration: none;
-  color: black;
-}
-*{
-  box-sizing: border-box;
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+  font-family: 'Fira Sans Condensed' !important;
 }
