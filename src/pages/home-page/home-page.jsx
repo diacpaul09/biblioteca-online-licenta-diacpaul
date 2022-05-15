@@ -22,7 +22,7 @@ const HomePage = () => {
 
     const ref = firebase.firestore().collection("books");
 
-    function getSchools() {
+    function getBooks() {
 
         ref.onSnapshot((querySnapshot) => {
             const items = [];
@@ -35,7 +35,7 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        getSchools();
+        getBooks();
         // eslint-disable-next-line
     }, []);
 
@@ -48,7 +48,6 @@ const HomePage = () => {
                 handleChangeSearchByType={handleChangeSearchByType}
                 searchByType={searchByType}
             />
-
 
             <BookList books={books} searchByValue={searchByValue} searchByType= {searchByType} />
         </div>

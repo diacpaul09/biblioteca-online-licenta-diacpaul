@@ -11,11 +11,12 @@ import { connect } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import HomePage from "./pages/home-page/home-page";
+import SuccessfulSignIn from "./components/successful-sign-in/successfull-sign-in";
+import MyProfilePage from "./pages/my-profile/my-profile-page";
 
 class App extends React.Component {
-  unsubscribeFromAuth = null;
   
-
+  unsubscribeFromAuth = null;
   componentDidMount() {
     const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -40,32 +41,36 @@ class App extends React.Component {
 
   render() {
     return (
-      <div >
+      <div>
         <Header />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
+          <Route path="/successful" element={<SuccessfulSignIn currentUser={this.props.currentUser}/>} />
           <Route
             exact
             path="/signin"
             element={
               this.props.currentUser ? (
-                <Navigate to="/" replace />
+                <Navigate to="/successful" replace />
               ) : (
                 <SignInPage />
               )
             }
           />
+          
           <Route
             exact
             path="/signup"
             element={
               this.props.currentUser ? (
-                <Navigate to="/" replace />
+                <Navigate to="/successful" replace />
               ) : (
                 <SignUpPage />
               )
             }
           />
+          
+          <Route path="/myProfile" element={<MyProfilePage />} />
         </Routes>
       </div>
     );

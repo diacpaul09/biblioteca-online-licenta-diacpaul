@@ -1,7 +1,7 @@
 import './header.scss'
 import React from "react";
 import { Button } from "@mui/material";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
@@ -13,6 +13,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 const Header = ({ currentUser }) => {
+    const navigate = useNavigate();
+   
     const userFunctions = [
         {
             id: 1,
@@ -32,13 +34,21 @@ const Header = ({ currentUser }) => {
         }
     ];
 
+    const handleLogOut =()=>{
+        navigate("/")
+        return auth.signOut();
+    }
+
     const handleUserFunctions = (value) => {
         switch (value) {
             case "Log Out":
-                return auth.signOut();
+                return handleLogOut();
+            case "My Profile":
+                return navigate("/myProfile");
             default:
                 return;
         }
+
     }
 
 
