@@ -1,10 +1,13 @@
 import React from "react";
 import Book from "../book/book";
 import './book-list.scss'
+
 const BookList = ({ books, searchByValue = "", searchByType }) => {
+
+
+
     return (
         <div className="most-readed">
-
 
             {
                 books.filter(book => {
@@ -18,11 +21,13 @@ const BookList = ({ books, searchByValue = "", searchByType }) => {
                     return book.title.toLowerCase().includes(searchByValue.toLowerCase())
                 }).map(book => (<Book
                     key={book.id}
+                    id={book.id}
                     author={book.author}
                     title={book.title}
                     price={book.price}
                     image={book.image}
                     genre={book.genre}
+                    isAudible={book.isAudible}
                 />))
             }
         </div>)
