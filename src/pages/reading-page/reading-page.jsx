@@ -1,63 +1,76 @@
-import React from "react";
-import HTMLFlipBook from "react-pageflip";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import './reading-page.scss'
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { Document, Page, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const Page = React.forwardRef((props, ref) => {
-    return (
-        <div className="page" ref={ref}>
-            <div className="page-content">
-                <h2 className="page-header">Page header - {props.number}</h2>
-                <div className="page-image"></div>
-                <div className="page-text">{props.children}</div>
-                <div className="page-footer">{parseInt(props.number) + 1}</div>
-            </div>
-        </div>
-    );
-});
+const MyBook = () => {
 
 
-const PageCover = React.forwardRef((props, ref) => {
-    return (
-        <div className="page page-cover" ref={ref} >
-            <div className="page-content">
-                <h2>{props.children}</h2>
-            </div>
-        </div>
-    );
-});
+    const location = useLocation()
+    const storage = getStorage();
+    const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${location.state.id}.pdf`);
+    const [link, setLink] = useState('')
+
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+
+    function onDocumentLoadSuccess({ numPages }) {
+        setNumPages(numPages);
+        setPageNumber(1);
+    }
+
+    function changePage(offSet) {
+        setPageNumber(prevPageNumber => prevPageNumber + offSet);
+    }
+
+    function changePageBack() {
+        changePage(-1)
+    }
+
+    function changePageNext() {
+        changePage(+1)
+    }
+
+    getDownloadURL(bookRef)
+        .then((url) => {
+            setLink(url)
+        })
+        .catch((error) => {
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    break;
+                case 'storage/unauthorized':
+                    break;
+                case 'storage/canceled':
+                    break;
+                case 'storage/unknown':
+                    break;
+            }
+        });
 
 
-const MyBook = ({title}) => {
-
-    const location=useLocation()
 
     return (
         <div className="reading-page" >
 
-            <HTMLFlipBook
-                className="book-pages"
-                width={600}
-                height={700}
-                showCover={true}
-                maxShadowOpacity={0}
-            >
-                <PageCover>{location.state.title}</PageCover>
-                <Page className="book-page" number="1">ma cheama </Page>
-                <Page className="book-page" number="2">Page text</Page>
-                <Page className="book-page" number="3">Page text</Page>
-                <Page className="book-page" number="4">Page text</Page>
-                <Page className="book-page" number="5">Page text</Page>
-                <Page className="book-page" number="6">Page text</Page>
-                <Page className="book-page" number="7">Page text</Page>
-                <Page className="book-page" number="8">Page text</Page>
-                <Page className="book-page" number="9">Page text</Page>
-                <Page className="book-page" number="10">Page text</Page>
-                <Page className="book-page" number="11">Page text</Page>
-                <Page className="book-page" number="12">Page text</Page>
-                <Page className="book-page" number="13">Page text</Page>
-            </HTMLFlipBook>
-        </div>
+           
+            <header className="App-header">
+                <Document file={link} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Page height={650} pageNumber={pageNumber} />
+                </Document>
+                <p> Page {pageNumber} of {numPages}</p>
+                {pageNumber > 1 &&
+                    <button onClick={changePageBack}>Previous Page</button>
+                }
+                {
+                    pageNumber < numPages &&
+                    <button onClick={changePageNext}>Next Page</button>
+                }
+            </header>
+
+        </div >
     );
 }
 

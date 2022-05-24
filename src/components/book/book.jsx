@@ -17,7 +17,7 @@ const Book = ({ id, author, title, price, image, genre, isAudible }) => {
 
 
         <div className="book" onClick={() =>
-            // <Navigate to="/bookpage"  replace />
+            
             navigate(`/bookpage/${str}`, { state: { id, author, title, price, image, genre, isAudible } })
         }
         >

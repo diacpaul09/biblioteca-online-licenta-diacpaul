@@ -54,7 +54,8 @@ const BookPage = () => {
                 <div>{description.length!==0 ? description[0].desc : "Loading..."}</div>
 
                 <div className="buttons">
-                    <Button className="button" variant="contained" onClick={()=>navigate('/reading', {state:{title:location.state.title}})} fullWidth>Read now</Button>
+                    <Button className="button" variant="contained" onClick={()=>navigate(`/reading/${location.state.id}`, 
+                    {state: { id:location.state.id, author:location.state.author, title:location.state.title}})} fullWidth>Read now</Button>
                     {
                         location.state.isAudible ?
                             <Button className="button" variant="contained" fullWidth> Listen now</Button>

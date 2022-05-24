@@ -75,7 +75,7 @@ class App extends React.Component {
           />
           <Route exact path="/bookpage/*" element={<BookPage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
-          <Route path="/reading/" element={<MyBook />} />
+          <Route path="/reading/*" element={<MyBook />} />
         </Routes>
       </div>
     );
