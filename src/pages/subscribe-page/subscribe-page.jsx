@@ -52,8 +52,6 @@ const SubscribePage = ({ currentUser }) => {
 
         setCurrentUserID(currentUser ? currentUser.id : null)
 
-        console.log(currentUserID)
-        // console.log(currentUser.id)
 
         if (currentUserID) {
 

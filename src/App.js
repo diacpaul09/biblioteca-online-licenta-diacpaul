@@ -16,6 +16,7 @@ import MyProfilePage from "./pages/my-profile/my-profile-page";
 import BookPage from "./pages/book-page/book-page";
 import MyBook from "./pages/reading-page/reading-page";
 import SubscribePage from "./pages/subscribe-page/subscribe-page";
+import MyBooksPage from "./pages/my-books-page/my-books-page";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -76,6 +77,7 @@ class App extends React.Component {
           />
           <Route exact path="/bookpage/*" element={<BookPage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
+          <Route path="/myBooks" element={<MyBooksPage />} />
           <Route path="/reading/*" element={<MyBook />} />
           <Route path="/subscribe" element={<SubscribePage />} />
         </Routes>

@@ -17,16 +17,15 @@ const MyBook = ({ currentUser }) => {
     const location = useLocation()
     const storage = getStorage();
     const bookId = location.state.id;
-    const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${bookId}.pdf`);
     const [link, setLink] = useState('')
     const [currentUserId, setCurrentUserID] = useState("")
     const [currentReadingBook, setCurrentReadingBook] = useState([]);
     const [numPages, setNumPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
-
+    const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${bookId}.pdf`);
     const refCurrentlyReading = firebase.firestore().collection("currentlyReading");
 
-    console.log(pageNumber)
+    
 
     function onDocumentLoadSuccess({ numPages }) {
         currentReadingBook[0] ?
@@ -88,9 +87,9 @@ const MyBook = ({ currentUser }) => {
             currentPage: pageNumber,
             numberOfPages: numPages
         }).then(function (res) {
-            alert("data is saved")
+
         }).catch(function (err) {
-            alert("data is not added")
+
         })
     }
 
@@ -121,8 +120,7 @@ const MyBook = ({ currentUser }) => {
     useEffect(() => {
         getCurrentBook();
         // eslint-disable-next-line
-    }
-        , [currentUser, currentUserId, bookId]
+    }, [currentUser, currentUserId, bookId]
     )
 
     return (
@@ -139,7 +137,7 @@ const MyBook = ({ currentUser }) => {
                 </Document>
 
 
-                    <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
+                <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
                 <div className="buttons">
 
                     {pageNumber > 1 &&

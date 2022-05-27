@@ -45,6 +45,8 @@ const Header = ({ currentUser }) => {
                 return handleLogOut();
             case "My Profile":
                 return navigate("/myProfile");
+            case "My Books":
+                return navigate("/myBooks")
             default:
                 return;
         }
@@ -70,12 +72,7 @@ const Header = ({ currentUser }) => {
                 <div className='button'>
                     <Button variant="contained">Audio Books</Button>
                 </div>
-                <div className='button'>
-                    <Button variant="contained">Order</Button>
-                </div>
-                <div className='button'>
-                    <Button variant="contained">Rent</Button>
-                </div>
+                
                 <div className='button'>
                     <Button variant="contained">Donate</Button>
                 </div>
