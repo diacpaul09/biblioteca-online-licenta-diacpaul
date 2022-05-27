@@ -1,13 +1,24 @@
 .reading-page {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
 
-  overflow: hidden;
-
+  .title {
+    display: flex;
+    justify-content: center;
+  }
   .App-header {
     .files {
+      margin-top: 20px;
       display: flex;
+      justify-content: center;
+      overflow: hidden;
+      display: flex;
+    }
+    .page-numbers{
+      display: flex;
+      justify-content: center;
+    }
+    .buttons{
+      display: flex;
+      justify-content: center;
     }
   }
 }

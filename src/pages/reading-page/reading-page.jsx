@@ -1,24 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import './reading-page.scss'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore/lite";
 import { Document, Page, pdfjs } from "react-pdf";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import firebase, { db } from "../../firebase/firebase.utils";
+import { Button } from "@mui/material";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const MyBook = () => {
+const MyBook = ({ currentUser }) => {
 
 
     const location = useLocation()
     const storage = getStorage();
-    const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${location.state.id}.pdf`);
+    const bookId = location.state.id;
+    const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${bookId}.pdf`);
     const [link, setLink] = useState('')
-
-    const [numPages, setNumPages] = useState(null);
+    const [currentUserId, setCurrentUserID] = useState("")
+    const [currentReadingBook, setCurrentReadingBook] = useState([]);
+    const [numPages, setNumPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
 
+    const refCurrentlyReading = firebase.firestore().collection("currentlyReading");
+
+    console.log(pageNumber)
+
     function onDocumentLoadSuccess({ numPages }) {
+        currentReadingBook[0] ?
+            setPageNumber(currentReadingBook[0].currentPage) :
+            setPageNumber(1)
         setNumPages(numPages);
-        setPageNumber(1);
+    }
+
+    const updatePageNumbers = async (value) => {
+        const readingBookItem = doc(db, "currentlyReading", currentReadingBook[0].id);
+        await updateDoc(readingBookItem, {
+            currentPage: pageNumber + value,
+            numberOfPages: numPages
+
+        });
     }
 
     function changePage(offSet) {
@@ -27,10 +50,17 @@ const MyBook = () => {
 
     function changePageBack() {
         changePage(-1)
+        if (currentReadingBook[0]) {
+            updatePageNumbers(-1);
+        }
     }
 
     function changePageNext() {
         changePage(+1)
+        if (currentReadingBook[0]) {
+            updatePageNumbers(+1);
+
+        }
     }
 
     getDownloadURL(bookRef)
@@ -47,32 +77,89 @@ const MyBook = () => {
                     break;
                 case 'storage/unknown':
                     break;
+                default:
             }
         });
 
+    const createBookInDb = async () => {
+        await addDoc(collection(db, "currentlyReading"), {
+            userId: currentUserId,
+            bookId: location.state.id,
+            currentPage: pageNumber,
+            numberOfPages: numPages
+        }).then(function (res) {
+            alert("data is saved")
+        }).catch(function (err) {
+            alert("data is not added")
+        })
+    }
 
+
+    function getCurrentBook() {
+
+        setCurrentUserID(currentUser ? currentUser.id : null)
+
+
+        if (bookId && currentUserId && !currentReadingBook[0]) {
+            var querry = refCurrentlyReading.where("bookId", "==", location.state.id)
+            querry = querry.where("userId", "==", currentUserId)
+            querry.onSnapshot((querySnapshot) => {
+                const items = [];
+                querySnapshot.forEach((doc) => {
+                    items.push({ id: doc.id, ...doc.data() });
+                });
+                if (items[0]) {
+                    setCurrentReadingBook(items)
+                }
+                else {
+                    createBookInDb()
+                }
+            });
+        }
+    }
+
+    useEffect(() => {
+        getCurrentBook();
+        // eslint-disable-next-line
+    }
+        , [currentUser, currentUserId, bookId]
+    )
 
     return (
         <div className="reading-page" >
-
+            <h1 className="title">{location.state.title}</h1>
 
             <header className="App-header">
+
                 <Document className="files" file={link} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page height={700} width={500} pageNumber={pageNumber} />
-                    <Page height={700} width={500} pageNumber={pageNumber + 1} />
+                    {pageNumber + 1 <= numPages ?
+                        <Page height={700} width={500} pageNumber={pageNumber + 1} /> : null
+                    }
                 </Document>
-                <p> Page {pageNumber} of {numPages}</p>
-                {pageNumber > 1 &&
-                    <button onClick={changePageBack}>Previous Page</button>
-                }
-                {
-                    pageNumber < numPages &&
-                    <button onClick={changePageNext}>Next Page</button>
-                }
+
+
+                    <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
+                <div className="buttons">
+
+                    {pageNumber > 1 &&
+
+                        <Button variant="contained" onClick={changePageBack}>Previous Page</Button>
+                    }
+                    {
+                        pageNumber < numPages &&
+                        <Button variant="contained" onClick={changePageNext}>Next Page</Button>
+                    }
+                </div>
             </header>
 
         </div >
     );
 }
 
-export default MyBook
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+});
+
+
+export default connect(mapStateToProps)(MyBook);

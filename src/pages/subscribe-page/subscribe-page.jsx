@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import SubscribeItem from "../../components/subscribe-item/subscribe-item";
 import firebase, { db } from "../../firebase/firebase.utils";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore/lite";
-import { setCurrentUser } from "../../redux/user/user.actions";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
@@ -28,10 +27,9 @@ const SubscribePage = ({ currentUser }) => {
         if (isUserSubscribed[0]) {
             const subItem = doc(db, "subscribedUsers", isUserSubscribed[0].id);
 
-        // Set the "capital" field of the city 'DC'
-        await updateDoc(subItem, {
-            subType:value
-        });
+            await updateDoc(subItem, {
+                subType: value
+            });
         }
         else {
             await addDoc(collection(db, "subscribedUsers"), {
@@ -48,7 +46,7 @@ const SubscribePage = ({ currentUser }) => {
 
 
 
-   
+
 
     function getSubs() {
 
@@ -105,10 +103,10 @@ const SubscribePage = ({ currentUser }) => {
                 }
             </div>
             {
-                isUserSubscribed[0] ? 
-                <h3 className="title">You currently are subscribed to {isUserSubscribed[0].subType} plan</h3> 
-                :
-                 <div> </div>
+                isUserSubscribed[0] ?
+                    <h3 className="title">You currently are subscribed to {isUserSubscribed[0].subType} plan</h3>
+                    :
+                    <div> </div>
             }
 
         </div>
