@@ -55,10 +55,11 @@ const MyBook = () => {
     return (
         <div className="reading-page" >
 
-           
+
             <header className="App-header">
-                <Document file={link} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page height={650} pageNumber={pageNumber} />
+                <Document className="files" file={link} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Page height={700} width={500} pageNumber={pageNumber} />
+                    <Page height={700} width={500} pageNumber={pageNumber + 1} />
                 </Document>
                 <p> Page {pageNumber} of {numPages}</p>
                 {pageNumber > 1 &&

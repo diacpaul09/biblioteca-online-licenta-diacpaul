@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 const Header = ({ currentUser }) => {
     const navigate = useNavigate();
-   
+
     const userFunctions = [
         {
             id: 1,
@@ -34,7 +34,7 @@ const Header = ({ currentUser }) => {
         }
     ];
 
-    const handleLogOut =()=>{
+    const handleLogOut = () => {
         navigate("/")
         return auth.signOut();
     }
@@ -63,7 +63,9 @@ const Header = ({ currentUser }) => {
             <div className="buttons">
 
                 <div className='button'>
-                    <Button variant="contained">Genre</Button>
+                    <Link to='/'>
+                        <Button variant="contained">Home</Button>
+                    </Link>
                 </div>
                 <div className='button'>
                     <Button variant="contained">Audio Books</Button>
@@ -76,6 +78,13 @@ const Header = ({ currentUser }) => {
                 </div>
                 <div className='button'>
                     <Button variant="contained">Donate</Button>
+                </div>
+                <div className='button'>
+                    <Link to={currentUser ? '/subscribe' : '/signin'}>
+                        <Button variant='contained' >
+                            Subscribe
+                        </Button>
+                    </Link>
                 </div>
                 {currentUser ? (
                     <div className='sign-in-and-sign-up-and-sign-out'>
@@ -124,7 +133,6 @@ const Header = ({ currentUser }) => {
                 )}
 
             </div>
-
         </div >
     )
 }

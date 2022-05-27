@@ -1,9 +1,13 @@
-.reading-page{
-    
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+.reading-page {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 
-    overflow: hidden;
-    
+  overflow: hidden;
+
+  .App-header {
+    .files {
+      display: flex;
+    }
+  }
 }

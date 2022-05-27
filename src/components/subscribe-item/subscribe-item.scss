@@ -1,0 +1,36 @@
+.subscribe-item{
+   
+   
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    .content{
+        border-radius: 10%;
+        height: 300px;
+        width: 300px;
+        border: 2px solid black;
+        .type{
+            display: flex;
+            justify-content: center;
+        }
+        .desc{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            font-size: large;
+            text-align: center;
+        }
+        .price{
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: large;
+        }
+        .sub-button{
+            margin-top: 40px;
+            display: flex;
+            justify-content: center
+        }
+    }
+}

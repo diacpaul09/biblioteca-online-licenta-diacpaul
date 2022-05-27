@@ -13,8 +13,9 @@ import { Navigate } from "react-router-dom";
 import HomePage from "./pages/home-page/home-page";
 import SuccessfulSignIn from "./components/successful-sign-in/successfull-sign-in";
 import MyProfilePage from "./pages/my-profile/my-profile-page";
-import BookPage from "./components/book-page/book-page";
+import BookPage from "./pages/book-page/book-page";
 import MyBook from "./pages/reading-page/reading-page";
+import SubscribePage from "./pages/subscribe-page/subscribe-page";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -76,6 +77,7 @@ class App extends React.Component {
           <Route exact path="/bookpage/*" element={<BookPage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
           <Route path="/reading/*" element={<MyBook />} />
+          <Route path="/subscribe" element={<SubscribePage />} />
         </Routes>
       </div>
     );

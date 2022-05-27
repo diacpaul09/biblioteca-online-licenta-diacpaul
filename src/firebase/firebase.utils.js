@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
+import {getFirestore} from "firebase/firestore/lite"
 const config = {
   
   apiKey: "AIzaSyBpdKQnxCFH8hPGMnMbILnr7lSt_073htE",
@@ -41,6 +42,8 @@ firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+export const db = getFirestore(firebase.initializeApp(config))
+
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
