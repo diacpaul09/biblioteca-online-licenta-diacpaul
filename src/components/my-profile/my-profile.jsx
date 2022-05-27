@@ -5,7 +5,7 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { Input } from "@mui/material";
+
 import { InputUnstyled } from "@mui/base";
 
 const MyProfile = ({ currentUser }) => {

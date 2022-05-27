@@ -66,12 +66,12 @@ const Header = ({ currentUser }) => {
                     </Link>
                 </div>
                 <div className='button'>
-                    <Button variant="contained">Audio Books</Button>
+                    <Link to='/audio-books'>
+                        <Button variant="contained">Audio Books</Button>
+                    </Link>
                 </div>
 
-                <div className='button'>
-                    <Button variant="contained">Donate</Button>
-                </div>
+
                 <div className='button'>
                     <Link to={currentUser ? '/subscribe' : '/signin'}>
                         <Button variant='contained' >
