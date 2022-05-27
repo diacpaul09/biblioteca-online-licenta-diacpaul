@@ -3,6 +3,7 @@ import './sign-in.styles.scss'
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -80,6 +81,10 @@ class SignIn extends React.Component {
                         }}>
                             Sign in with Google
                         </Button>
+                    </div>
+
+                    <div className="no-account">
+                        <Link to={'/signup'}>I don't have an account.</Link>
                     </div>
                 </form>
 

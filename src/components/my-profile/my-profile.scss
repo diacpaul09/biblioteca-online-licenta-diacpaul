@@ -1,0 +1,20 @@
+.profile-info {
+  .name {
+      margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    .input{
+        margin-left: 10px;
+    }
+  }
+  .email {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    .input{
+        margin-left: 10px;
+    }
+  }
+}

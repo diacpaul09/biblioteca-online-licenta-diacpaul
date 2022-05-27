@@ -38,7 +38,7 @@ const MyBooksPage = ({ currentUser }) => {
     return (
         <div className="currently-reading">
             {
-                currentReadingBooks.map(book => <CurrentlyReading key={book.id} bookId={book.bookId} pageNumber={book.currentPage} numPages={book.numberOfPages} />)
+                currentReadingBooks.map(book => <CurrentlyReading className="book-item" key={book.id} bookId={book.bookId} pageNumber={book.currentPage} numPages={book.numberOfPages} />)
             }
         </div>
     )

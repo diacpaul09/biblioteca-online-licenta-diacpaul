@@ -5,15 +5,24 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+import { Input } from "@mui/material";
+import { InputUnstyled } from "@mui/base";
 
 const MyProfile = ({ currentUser }) => {
 
-   
+
 
     return (
 
-        currentUser ? <div>
-            {currentUser.displayName}
+        currentUser ? <div className="profile-info">
+            <div className="name">
+                Display name :
+                <InputUnstyled className="input" value={currentUser.displayName} />
+            </div>
+            <div className="email">
+                Email:
+                <InputUnstyled className="input" value={currentUser.email} />
+            </div>
         </div> : <div>none</div>
     );
 

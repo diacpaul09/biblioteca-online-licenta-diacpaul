@@ -36,9 +36,9 @@ const SubscribePage = ({ currentUser }) => {
                 userId: currentUser.id,
                 subType: value
             }).then(function (res) {
-                alert("data is saved")
+               
             }).catch(function (err) {
-                alert("data is not added")
+                
             })
         }
     }

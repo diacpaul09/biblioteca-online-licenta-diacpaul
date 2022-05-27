@@ -1,7 +1,7 @@
 .book-info {
-    
-  background-color: gray;
+  
   margin-top: 20px;
+  background-color: gainsboro;
   width: 600px;
   display: flex;
   border: 2px solid black;
@@ -30,12 +30,12 @@
   }
 
   .content {
-      .title{
-          font-size: 20px;
-      }
-      .current-page{
-          margin-top: 37px;
-      }
+    .title {
+      font-size: 20px;
+    }
+    .current-page {
+      margin-top: 37px;
+    }
     margin-left: 50px;
     align-self: center;
     .button {

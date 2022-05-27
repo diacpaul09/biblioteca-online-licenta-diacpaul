@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import FormInput from "../form-input/form-input.component";
 import { auth, createUserProfileDocumet } from "../../firebase/firebase.utils";
 import './sign-up.styles.scss'
+import { Link } from "react-router-dom";
 
 
 class SignUp extends React.Component {
@@ -58,6 +59,9 @@ class SignUp extends React.Component {
                     <FormInput type='password' name='confirmPassword' value={confirmPassword} onChange={this.handleChange} label='Confirm Password' required></FormInput>
                     <Button variant="contained" type='submit'> Sign Up</Button>
                 </form>
+                <div className="has-account">
+                    <Link to={'/signin'}>I already have an account</Link>
+                </div>
             </div>
         )
     }

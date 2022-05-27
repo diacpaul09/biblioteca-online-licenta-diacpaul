@@ -26,10 +26,6 @@ const Header = ({ currentUser }) => {
         },
         {
             id: 3,
-            name: "My Cart"
-        },
-        {
-            id: 4,
             name: "Log Out"
         }
     ];
@@ -72,7 +68,7 @@ const Header = ({ currentUser }) => {
                 <div className='button'>
                     <Button variant="contained">Audio Books</Button>
                 </div>
-                
+
                 <div className='button'>
                     <Button variant="contained">Donate</Button>
                 </div>

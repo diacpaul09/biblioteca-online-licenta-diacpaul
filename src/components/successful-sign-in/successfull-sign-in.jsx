@@ -31,6 +31,11 @@ const SuccessfulSignIn = ({ currentUser }) => {
                 <div className='button'>
                     <Button variant="contained" onClick={() => navigate('/myProfile')}>My Profile</Button>
                 </div>
+                <div className='button'>
+                    <Button variant="contained" onClick={() => navigate('/myBooks')}>My Books</Button>
+                </div>
+                
+                
             </div>
         </div>
     )
