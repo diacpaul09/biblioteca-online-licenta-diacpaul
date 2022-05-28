@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import './book-page.scss'
 import firebase from "../../firebase/firebase.utils";
 import { Button } from "@mui/material";
@@ -81,24 +81,39 @@ const BookPage = ({ currentUser }) => {
                                 navigate(`/reading/${location.state.id}`,
                                     { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
                             }
-                            else{
+                            else {
                                 navigate("/subscribe")
                             }
                         }
-                        else{
+                        else {
                             navigate('/signin')
                         }
                     }} fullWidth>Read now</Button>
                     {
                         location.state.isAudible ?
-                            <Button className="button" variant="contained" fullWidth> Listen now</Button>
-                            : null
+
+                            <Button className="button" variant="contained" onClick={() => {
+                                if (currentUserID) {
+                                    if (isUserSubscribed[0]) {
+                                        navigate(`/audio-page`,
+                                            { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
+                                    }
+                                    else {
+                                        navigate("/subscribe")
+                                    }
+                                }
+                                else {
+                                    navigate('/signin')
+                                }
+                            }} fullWidth > Listen now</Button>
+                            :
+                            null
                     }
                 </div>
             </div>
 
 
-        </div>
+        </div >
     )
 
 }

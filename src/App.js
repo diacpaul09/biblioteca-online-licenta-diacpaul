@@ -18,6 +18,7 @@ import MyBook from "./pages/reading-page/reading-page";
 import SubscribePage from "./pages/subscribe-page/subscribe-page";
 import MyBooksPage from "./pages/my-books-page/my-books-page";
 import AudioBooksPage from "./pages/audio-books-page/audio-books-page";
+import AudioPage from "./pages/audio-page/audio-page";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -82,6 +83,7 @@ class App extends React.Component {
           <Route path="/reading/*" element={<MyBook />} />
           <Route path="/subscribe" element={<SubscribePage />} />
           <Route path="/audio-books" element={<AudioBooksPage />} />
+          <Route path="/audio-page" element={<AudioPage />} />
         </Routes>
       </div>
     );
