@@ -36,9 +36,9 @@ const SubscribePage = ({ currentUser }) => {
                 userId: currentUser.id,
                 subType: value
             }).then(function (res) {
-               
+
             }).catch(function (err) {
-                
+
             })
         }
     }
@@ -100,12 +100,18 @@ const SubscribePage = ({ currentUser }) => {
                     )
                 }
             </div>
+
             {
                 isUserSubscribed[0] ?
                     <h3 className="title">You currently are subscribed to {isUserSubscribed[0].subType} plan</h3>
                     :
                     <div> </div>
             }
+            <div className="test-warning">*Please use the following credit card for payment
+                <br />4242 4242 4242 4242
+                <br />exp: 01/34
+                <br />CVV: 123
+            </div>
 
         </div>
     )

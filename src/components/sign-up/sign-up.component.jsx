@@ -4,6 +4,7 @@ import FormInput from "../form-input/form-input.component";
 import { auth, createUserProfileDocumet } from "../../firebase/firebase.utils";
 import './sign-up.styles.scss'
 import { Link } from "react-router-dom";
+import { getAuth, sendEmailVerification } from "firebase/auth";
 
 
 class SignUp extends React.Component {
