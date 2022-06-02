@@ -152,8 +152,8 @@ class App extends React.Component {
               ) : (
                 <Navigate to="/" replace />
               )
-            } */}
-          />
+            } />*/}
+          
           <Route
             path="/email-confirm"
             element={
