@@ -7,9 +7,9 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import './subscribe-page.scss'
+import { useNavigate } from "react-router-dom";
 
 const SubscribePage = ({ currentUser }) => {
-
 
 
     const [isUserSubscribed, setIsUserSubscribed] = useState([])
@@ -21,6 +21,7 @@ const SubscribePage = ({ currentUser }) => {
 
     const [currentUserID, setCurrentUserID] = useState("")
 
+    const navigate = useNavigate()
     const handleClickSubscribeButton = async (value) => {
 
 
@@ -73,17 +74,20 @@ const SubscribePage = ({ currentUser }) => {
             });
         }
 
-
-
+       
     }
 
     useEffect(() => {
         getSubs();
+
         // eslint-disable-next-line
     }, [currentUser, currentUserID]);
 
 
+
+
     return (
+
         <div className="subscribe-page">
 
             <h2 className="title">Subscribe Now!</h2>
@@ -114,6 +118,8 @@ const SubscribePage = ({ currentUser }) => {
             </div>
 
         </div>
+
+
     )
 
 }

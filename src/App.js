@@ -19,9 +19,12 @@ import SubscribePage from "./pages/subscribe-page/subscribe-page";
 import MyBooksPage from "./pages/my-books-page/my-books-page";
 import AudioBooksPage from "./pages/audio-books-page/audio-books-page";
 import AudioPage from "./pages/audio-page/audio-page";
+import EmailConfirm from "./pages/emailconfirm-page/emailconfirm";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
+  emailConfirmed = false;
+
   componentDidMount() {
     const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -34,6 +37,7 @@ class App extends React.Component {
             ...snapShot.data(),
           });
         });
+        this.emailConfirmed = userAuth.emailVerified;
       }
 
       setCurrentUser(userAuth);
@@ -50,6 +54,10 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route exact path="/*" element={<HomePage />} />
+          <Route exact path="/bookpage/*" element={<BookPage />} />
+          <Route path="/audio-books" element={<AudioBooksPage />} />
+          <Route path="/reading/*" element={<MyBook />} />
+          <Route path="/audio-page" element={<AudioPage />} />
           <Route
             path="/successful"
             element={<SuccessfulSignIn currentUser={this.props.currentUser} />}
@@ -59,31 +67,107 @@ class App extends React.Component {
             path="/signin"
             element={
               this.props.currentUser ? (
-                <Navigate to="/successful" replace />
+                <Navigate to="/email-confirm" replace />
               ) : (
                 <SignInPage />
               )
             }
           />
-
           <Route
             exact
             path="/signup"
             element={
               this.props.currentUser ? (
-                <Navigate to="/successful" replace />
+                <Navigate to="/email-confirm" replace />
               ) : (
                 <SignUpPage />
               )
             }
           />
-          <Route exact path="/bookpage/*" element={<BookPage />} />
-          <Route path="/myProfile" element={<MyProfilePage />} />
-          <Route path="/myBooks" element={<MyBooksPage />} />
-          <Route path="/reading/*" element={<MyBook />} />
-          <Route path="/subscribe" element={<SubscribePage />} />
-          <Route path="/audio-books" element={<AudioBooksPage />} />
-          <Route path="/audio-page" element={<AudioPage />} />
+          <Route
+            path="/myProfile"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <MyProfilePage />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/myBooks"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <MyBooksPage />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          {/* <Route
+            path="/reading/*"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <MyBook />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          /> */}
+          <Route
+            path="/subscribe"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <SubscribePage />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          {/* <Route
+            path="/audio-page"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <AudioPage />
+                ) : (
+                  <Navigate to="/email-confirm" />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            } */}
+          />
+          <Route
+            path="/email-confirm"
+            element={
+              this.props.currentUser ? (
+                this.emailConfirmed ? (
+                  <Navigate to="/successful" replace />
+                ) : (
+                  <EmailConfirm />
+                )
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
         </Routes>
       </div>
     );
