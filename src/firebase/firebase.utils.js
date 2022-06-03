@@ -20,7 +20,8 @@ export const createUserProfileDocumet = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, emailVerified } = userAuth;
+
     const createdAt = new Date();
 
     try {
@@ -28,19 +29,25 @@ export const createUserProfileDocumet = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        
+        emailVerified,
         ...additionalData,
       });
+    } catch (error) {
+      console.log("error creatung user", error.message);
+    }
+  } else {
+    const { emailVerified } = userAuth;
 
-      
+    try {
+      await userRef.update({
+
+        emailVerified,
+        ...additionalData,
+      });
     } catch (error) {
       console.log("error creatung user", error.message);
     }
   }
-
-
-
-
 
   return userRef;
 };

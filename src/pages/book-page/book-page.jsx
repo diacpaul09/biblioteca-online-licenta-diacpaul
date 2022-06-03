@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import './book-page.scss'
 import firebase from "../../firebase/firebase.utils";
 import { Button } from "@mui/material";
@@ -35,12 +35,31 @@ const BookPage = ({ currentUser }) => {
         });
 
         if (currentUserID) {
-            refSub.where("userId", "==", currentUserID).onSnapshot((querySnapshot) => {
+            refSub.orderBy("subbedAt", "desc").where("userId", "==", currentUserID).onSnapshot((querySnapshot) => {
                 const items = [];
                 querySnapshot.forEach((doc) => {
                     items.push({ id: doc.id, ...doc.data() });
                 });
-                setIsUserSubscribed(items);
+                if (items[0]) {
+                    const date = items[0].subbedAt.toDate()
+                    const now = new Date();
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    const diffDays = Math.round(Math.abs((date - now) / oneDay));
+                    
+
+                    if (diffDays <= 90 && items[0].subType === "Ultra-Premium") {
+                        setIsUserSubscribed(items);
+                    } else if (diffDays <= 30) {
+                        setIsUserSubscribed(items);
+                    }
+                    else {
+                        querySnapshot.forEach((doc) => {
+                            if (doc.id === items[0].id) {
+                                doc.ref.delete();
+                            }
+                        })
+                    }
+                }
 
             });
         }

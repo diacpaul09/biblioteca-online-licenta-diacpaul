@@ -5,9 +5,7 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore/lite";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-
 import './subscribe-page.scss'
-import { useNavigate } from "react-router-dom";
 
 const SubscribePage = ({ currentUser }) => {
 
@@ -21,21 +19,24 @@ const SubscribePage = ({ currentUser }) => {
 
     const [currentUserID, setCurrentUserID] = useState("")
 
-    const navigate = useNavigate()
     const handleClickSubscribeButton = async (value) => {
 
+        const subbedAt = new Date();
 
         if (isUserSubscribed[0]) {
             const subItem = doc(db, "subscribedUsers", isUserSubscribed[0].id);
 
             await updateDoc(subItem, {
-                subType: value
+                subType: value,
+                subbedAt
+
             });
         }
         else {
             await addDoc(collection(db, "subscribedUsers"), {
                 userId: currentUser.id,
-                subType: value
+                subType: value,
+                subbedAt
             }).then(function (res) {
 
             }).catch(function (err) {
@@ -53,7 +54,6 @@ const SubscribePage = ({ currentUser }) => {
 
         setCurrentUserID(currentUser ? currentUser.id : null)
 
-
         if (currentUserID) {
 
             ref.orderBy("price").onSnapshot((querySnapshot) => {
@@ -66,22 +66,43 @@ const SubscribePage = ({ currentUser }) => {
 
             refSub.where("userId", "==", currentUserID).onSnapshot((querySnapshot) => {
                 const items = [];
+
                 querySnapshot.forEach((doc) => {
                     items.push({ id: doc.id, ...doc.data() });
                 });
-                setIsUserSubscribed(items);
+                if (items[0]) {
+                    const date = items[0].subbedAt.toDate()
+                    const now = new Date();
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    const diffDays = Math.round(Math.abs((date - now) / oneDay));
+                    
+
+                    if (diffDays <= 90 && items[0].subType === "Ultra-Premium") {
+                        setIsUserSubscribed(items);
+                    } else if (diffDays <= 30) {
+                        setIsUserSubscribed(items);
+                    }
+                    else {
+                        querySnapshot.forEach((doc) => {
+                            if (doc.id === items[0].id) {
+                                doc.ref.delete();
+                            }
+                        })
+                    }
+                }
+
 
             });
         }
 
-       
+
     }
 
     useEffect(() => {
         getSubs();
 
         // eslint-disable-next-line
-    }, [currentUser, currentUserID]);
+    }, [currentUserID]);
 
 
 

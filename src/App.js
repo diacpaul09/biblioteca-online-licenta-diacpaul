@@ -23,7 +23,6 @@ import EmailConfirm from "./pages/emailconfirm-page/emailconfirm";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
-  emailConfirmed = false;
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
@@ -34,10 +33,10 @@ class App extends React.Component {
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
+
             ...snapShot.data(),
           });
         });
-        this.emailConfirmed = userAuth.emailVerified;
       }
 
       setCurrentUser(userAuth);
@@ -56,8 +55,7 @@ class App extends React.Component {
           <Route exact path="/*" element={<HomePage />} />
           <Route exact path="/bookpage/*" element={<BookPage />} />
           <Route path="/audio-books" element={<AudioBooksPage />} />
-          <Route path="/reading/*" element={<MyBook />} />
-          <Route path="/audio-page" element={<AudioPage />} />
+
           <Route
             path="/successful"
             element={<SuccessfulSignIn currentUser={this.props.currentUser} />}
@@ -88,10 +86,10 @@ class App extends React.Component {
             path="/myProfile"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <MyProfilePage />
                 ) : (
-                  <Navigate to="/" replace />
+                  <Navigate to="/email-confirm" replace />
                 )
               ) : (
                 <Navigate to="/" replace />
@@ -102,49 +100,49 @@ class App extends React.Component {
             path="/myBooks"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <MyBooksPage />
                 ) : (
-                  <Navigate to="/" replace />
+                  <Navigate to="/email-confirm" replace />
                 )
               ) : (
                 <Navigate to="/" replace />
               )
             }
           />
-          {/* <Route
+          <Route
             path="/reading/*"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <MyBook />
                 ) : (
-                  <Navigate to="/" replace />
+                  <Navigate to="/email-confirm" replace />
                 )
               ) : (
                 <Navigate to="/" replace />
               )
             }
-          /> */}
+          />
           <Route
             path="/subscribe"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <SubscribePage />
                 ) : (
-                  <Navigate to="/" replace />
+                  <Navigate to="/email-confirm" replace />
                 )
               ) : (
                 <Navigate to="/" replace />
               )
             }
           />
-          {/* <Route
+          <Route
             path="/audio-page"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <AudioPage />
                 ) : (
                   <Navigate to="/email-confirm" />
@@ -152,13 +150,14 @@ class App extends React.Component {
               ) : (
                 <Navigate to="/" replace />
               )
-            } />*/}
-          
+            }
+          />
+
           <Route
             path="/email-confirm"
             element={
               this.props.currentUser ? (
-                this.emailConfirmed ? (
+                this.props.currentUser.emailVerified ? (
                   <Navigate to="/successful" replace />
                 ) : (
                   <EmailConfirm />
