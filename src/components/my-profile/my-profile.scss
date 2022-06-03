@@ -1,11 +1,11 @@
 .profile-info {
   .name {
-      margin-top: 50px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     font-size: 25px;
-    .input{
-        margin-left: 10px;
+    .input {
+      margin-left: 10px;
     }
   }
   .email {
@@ -13,8 +13,24 @@
     display: flex;
     justify-content: center;
     font-size: 25px;
-    .input{
-        margin-left: 10px;
+    .input {
+      margin-left: 10px;
+    }
+  }
+  .sub-type {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+  }
+  .days-to-payment {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    .input {
+      
+      margin-left: 10px;
     }
   }
 }
