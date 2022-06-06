@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {  useLocation, useNavigate } from "react-router-dom";
-import './book-page.scss'
+import { useLocation, useNavigate } from "react-router-dom";
+
 import firebase from "../../firebase/firebase.utils";
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
+
+import { BookPageContainer } from './book-page.styles'
 
 const BookPage = ({ currentUser }) => {
 
@@ -45,7 +47,7 @@ const BookPage = ({ currentUser }) => {
                     const now = new Date();
                     const oneDay = 24 * 60 * 60 * 1000;
                     const diffDays = Math.round(Math.abs((date - now) / oneDay));
-                    
+
 
                     if (diffDays <= 90 && items[0].subType === "Ultra-Premium") {
                         setIsUserSubscribed(items);
@@ -74,65 +76,64 @@ const BookPage = ({ currentUser }) => {
 
 
     return (
-        <div className="book-page">
+        <BookPageContainer>
+            <div className="book-page">
+                <div className="menu-item">
+                    <div
+                        className='background-image'
+                        style={{
+                            backgroundImage: `url(${location.state.image})`
+                        }}
+                    />
+                </div>
 
+                <div className="description">
+                    <h1 className=" title">{location.state.title}</h1>
+                    <h2 className="author">{location.state.author}</h2>
+                    <h3>{location.state.genre}</h3>
 
-            <div className="menu-item">
-                <div
-                    className='background-image'
-                    style={{
-                        backgroundImage: `url(${location.state.image})`
-                    }}
-                />
-            </div>
+                    <div>{description.length !== 0 ? description[0].desc : "Loading..."}</div>
 
-            <div className="description">
-                <h1 className=" title">{location.state.title}</h1>
-                <h2 className="author">{location.state.author}</h2>
-                <h3>{location.state.genre}</h3>
-
-                <div>{description.length !== 0 ? description[0].desc : "Loading..."}</div>
-
-                <div className="buttons">
-                    <Button className="button" variant="contained" onClick={() => {
-                        if (currentUserID) {
-                            if (isUserSubscribed[0]) {
-                                navigate(`/reading/${location.state.id}`,
-                                    { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
-                            }
-                            else {
-                                navigate("/subscribe")
-                            }
-                        }
-                        else {
-                            navigate('/signin')
-                        }
-                    }} fullWidth>Read now</Button>
-                    {
-                        location.state.isAudible ?
-
-                            <Button className="button" variant="contained" onClick={() => {
-                                if (currentUserID) {
-                                    if (isUserSubscribed[0]) {
-                                        navigate(`/audio-page`,
-                                            { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
-                                    }
-                                    else {
-                                        navigate("/subscribe")
-                                    }
+                    <div className="buttons">
+                        <Button className="button" variant="contained" onClick={() => {
+                            if (currentUserID) {
+                                if (isUserSubscribed[0]) {
+                                    navigate(`/reading/${location.state.id}`,
+                                        { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
                                 }
                                 else {
-                                    navigate('/signin')
+                                    navigate("/subscribe")
                                 }
-                            }} fullWidth > Listen now</Button>
-                            :
-                            null
-                    }
+                            }
+                            else {
+                                navigate('/signin')
+                            }
+                        }} fullWidth>Read now</Button>
+                        {
+                            location.state.isAudible ?
+
+                                <Button className="button" variant="contained" onClick={() => {
+                                    if (currentUserID) {
+                                        if (isUserSubscribed[0]) {
+                                            navigate(`/audio-page`,
+                                                { state: { id: location.state.id, author: location.state.author, title: location.state.title } })
+                                        }
+                                        else {
+                                            navigate("/subscribe")
+                                        }
+                                    }
+                                    else {
+                                        navigate('/signin')
+                                    }
+                                }} fullWidth > Listen now</Button>
+                                :
+                                null
+                        }
+                    </div>
                 </div>
-            </div>
+            </div >
+        </BookPageContainer>
 
-
-        </div >
     )
 
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import { GlobalStyle } from "./global.styles";
 import Header from "./components/header/header";
 import SignInPage from "./pages/sign-in-page/sign-in-page";
 import SignUpPage from "./pages/sign-up-page/sign-up-page";
@@ -50,6 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <GlobalStyle/>
         <Header />
         <Routes>
           <Route exact path="/*" element={<HomePage />} />

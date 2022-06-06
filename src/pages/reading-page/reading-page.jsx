@@ -24,8 +24,32 @@ const MyBook = ({ currentUser }) => {
     const [pageNumber, setPageNumber] = useState(1);
     const bookRef = ref(storage, `gs://biblioteca-online-licenta.appspot.com/booksContent/${bookId}.pdf`);
     const refCurrentlyReading = firebase.firestore().collection("currentlyReading");
+    const { height, width } = useWindowDimensions();
 
-    
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+            width,
+            height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+        useEffect(() => {
+            function handleResize() {
+                setWindowDimensions(getWindowDimensions());
+            }
+
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, []);
+
+        return windowDimensions;
+    }
+
+
 
     function onDocumentLoadSuccess({ numPages }) {
         currentReadingBook[0] ?
@@ -130,13 +154,13 @@ const MyBook = ({ currentUser }) => {
             <header className="App-header">
 
                 <Document className="files" file={link} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page height={700} width={500} pageNumber={pageNumber} />
+                    <Page width={400} pageNumber={pageNumber} />
                     {pageNumber + 1 <= numPages ?
-                        <Page height={700} width={500} pageNumber={pageNumber + 1} /> : null
+                        <Page width={400} pageNumber={pageNumber + 1} /> : null
                     }
                 </Document>
 
-
+                
                 <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
                 <div className="buttons">
 

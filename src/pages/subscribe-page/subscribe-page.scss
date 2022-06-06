@@ -6,8 +6,10 @@
     margin-top: 25px;
   }
   .subscribe-item {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
   }
   .test-warning {
     text-align: center;

@@ -1,4 +1,3 @@
-import './header.scss'
 import React from "react";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +8,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import {
+    HeaderContainer,
+} from './header.styles';
 
 
 const Header = ({ currentUser }) => {
@@ -51,30 +52,30 @@ const Header = ({ currentUser }) => {
 
 
     return (
-        <div className="header">
+        <HeaderContainer>
             <div className='title'>
                 <Link to='/'>
                     <Logo className="logo" />
                 </Link>
-                <h1 className="title-name">Online Library </h1>
+                <h1 className="title-name" onClick={() => navigate('/')}>Online Library </h1>
             </div>
             <div className="buttons">
 
                 <div className='button'>
                     <Link to='/'>
-                        <Button variant="contained">Home</Button>
+                        <Button className="buttonstyle" variant="contained">Home</Button>
                     </Link>
                 </div>
                 <div className='button'>
                     <Link to='/audio-books'>
-                        <Button variant="contained">Audio Books</Button>
+                        <Button className="buttonstyle" variant="contained">Audio Books</Button>
                     </Link>
                 </div>
 
 
                 <div className='button'>
                     <Link to={currentUser ? '/subscribe' : '/signin'}>
-                        <Button variant='contained' >
+                        <Button className="buttonstyle" variant='contained' >
                             Subscribe
                         </Button>
                     </Link>
@@ -83,8 +84,8 @@ const Header = ({ currentUser }) => {
                     <div className='sign-in-and-sign-up-and-sign-out'>
                         <div className='button'>
 
-                            <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic">
+                            <Dropdown >
+                                <Dropdown.Toggle className="buttonstyle" id="dropdown-basic">
                                     {currentUser.displayName}
                                 </Dropdown.Toggle>
 
@@ -109,14 +110,14 @@ const Header = ({ currentUser }) => {
                     <div className='sign-in-and-sign-up-and-sign-out'>
                         <div className='button'>
                             <Link className='option' to='/signin'>
-                                <Button variant='contained' >
+                                <Button className="buttonstyle" variant='contained' >
                                     SIGN IN
                                 </Button>
                             </Link>
                         </div>
                         <div className='button'>
                             <Link className='option' to='/signup'>
-                                <Button variant='contained' >
+                                <Button className="buttonstyle" variant='contained' >
                                     SIGN UP
                                 </Button>
                             </Link>
@@ -126,7 +127,7 @@ const Header = ({ currentUser }) => {
                 )}
 
             </div>
-        </div >
+        </HeaderContainer >
     )
 }
 

@@ -7,7 +7,6 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
-import { InputUnstyled } from "@mui/base";
 import { Input } from "@mui/material";
 
 const MyProfile = ({ currentUser }) => {
@@ -72,7 +71,7 @@ const MyProfile = ({ currentUser }) => {
             {currentUser ?
                 <div>
                     <div className="name">
-                        Display name :
+                        Full name :
                         <Input className="input" value={currentUser.displayName ? currentUser.displayName : "n"} />
                     </div>
                     <div className="email">
@@ -89,13 +88,18 @@ const MyProfile = ({ currentUser }) => {
                 isUserSubscribed[0] ?
                     <div className="sub-type">
                         You currently are subscribed to {isUserSubscribed[0].subType} plan.
-                    </div> : <div> You are not subscribed to any plan.</div>
+                    </div> : <div className="sub-type"> You are not subscribed to any plan.</div>
             }
 
             {
                 isUserSubscribed[0] ?
                     <div className="days-to-payment">
-                        Days to payment <Input className="input" value={30 - daysToPayment} />
+                        Days to payment <Input className="input" value={
+                            isUserSubscribed[0].subType === "Ultra-Premium" ?
+                                90 - daysToPayment :
+                                30 - daysToPayment
+
+                        } />
                     </div> : <div></div>
             }
         </div>

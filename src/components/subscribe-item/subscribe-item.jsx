@@ -12,6 +12,7 @@ const SubscribeItem = ({ price, type, desc, handleClickSubscribeButton }) => {
 
     useEffect(() => {
         if (success === true) { handleClickSubscribeButton(type); setSuccess(false) }
+        // eslint-disable-next-line
     }, [success])
     return (
         <div className="subscribe-item">
