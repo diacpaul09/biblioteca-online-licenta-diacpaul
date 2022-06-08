@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import firebase from "../../firebase/firebase.utils";
-import './my-books-page.scss'
+
 import CurrentlyReading from "../../components/currently-reading/currently-reading";
 
+import { MyBooksPageContainer }
+    from './my-books-page.styles'
 const MyBooksPage = ({ currentUser }) => {
 
     const [currentUserId, setCurrentUserID] = useState("")
@@ -33,15 +35,18 @@ const MyBooksPage = ({ currentUser }) => {
         // eslint-disable-next-line
     }, [currentUser, currentUserId])
 
-   
+
 
     return (
-        <div className="currently-reading">
-            {currentReadingBooks[0]?
-                currentReadingBooks.map(book => <CurrentlyReading className="book-item" key={book.id} bookId={book.bookId} pageNumber={book.currentPage} numPages={book.numberOfPages} /> ) :
-                (<div className="no-books">You currently are not reading anything.</div>)
-            }
-        </div>
+        <MyBooksPageContainer>
+
+            <div className="currently-reading">
+                {currentReadingBooks[0] ?
+                    currentReadingBooks.map(book => <CurrentlyReading className="book-item" key={book.id} bookId={book.bookId} pageNumber={book.currentPage} numPages={book.numberOfPages} />) :
+                    (<div className="no-books">You currently are not reading anything.</div>)
+                }
+            </div>
+        </MyBooksPageContainer>
     )
 
 }

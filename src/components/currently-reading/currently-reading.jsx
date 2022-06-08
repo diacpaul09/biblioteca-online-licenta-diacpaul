@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import firebase from "../../firebase/firebase.utils";
 
-import './currently-reading.scss'
+import { CurrentlyReadingContainer } from './currentlyReading.styles'
 
 const CurrentlyReading = ({ bookId, pageNumber, numPages }) => {
 
@@ -34,34 +34,39 @@ const CurrentlyReading = ({ bookId, pageNumber, numPages }) => {
 
 
 
-    return (<div>{
-        books[0] ?
-            < div className="book-info" >
-                <div className="menu-item">
+    return (
+        <CurrentlyReadingContainer>
+            <div>{
 
-                    <div
-                        className='background-image'
-                        style={{
-                            backgroundImage: `url(${books[0].image})`
-                        }}
-                    />
-                </div>
-                <div className="content">
-                    <div className="title" > {books[0].title}</div >
-                    <div className="author">{books[0].author}</div>
-                    <div className="genre">{books[0].genre}</div>
-                    <div className="current-page">Current page: {pageNumber} of {numPages}</div>
-                    <div className="button">
+                books[0] ?
+                    < div className="book-info" >
+                        <div className="menu-item">
 
-                        <Button variant="contained" onClick={()=>navigate(`/reading/${bookId}`,
-                            { state: { id: bookId, title:books[0].title } })}> Continue reading</Button>
+                            <div
+                                className='background-image'
+                                style={{
+                                    backgroundImage: `url(${books[0].image})`
+                                }}
+                            />
+                        </div>
+                        <div className="content">
+                            <div className="title" > {books[0].title}</div >
+                            <div className="author">{books[0].author}</div>
+                            <div className="genre">{books[0].genre}</div>
+                            <div className="current-page">Current page: {pageNumber} of {numPages}</div>
+                            <div className="button">
 
-                    </div>
-                </div>
+                                <Button variant="contained" onClick={() => navigate(`/reading/${bookId}`,
+                                    { state: { id: bookId, title: books[0].title } })}> Continue reading</Button>
+
+                            </div>
+                        </div>
 
 
-            </div >
-            : "Loading"}</div>
+                    </div >
+                    : "Loading"}</div>
+        </CurrentlyReadingContainer>
+
 
 
     )

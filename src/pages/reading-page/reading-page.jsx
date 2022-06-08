@@ -154,13 +154,14 @@ const MyBook = ({ currentUser }) => {
             <header className="App-header">
 
                 <Document className="files" file={link} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page width={400} pageNumber={pageNumber} />
-                    {pageNumber + 1 <= numPages ?
-                        <Page width={400} pageNumber={pageNumber + 1} /> : null
+                    <Page width={width > 800 ? 550 : 450} pageNumber={pageNumber} />
+                    {width > 800 && pageNumber + 1 <= numPages ?
+                        <Page width={width > 800 ? 550 : 450} pageNumber={pageNumber + 1} /> : null
                     }
+                    
                 </Document>
 
-                
+
                 <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
                 <div className="buttons">
 
@@ -168,6 +169,7 @@ const MyBook = ({ currentUser }) => {
 
                         <Button variant="contained" onClick={changePageBack}>Previous Page</Button>
                     }
+
                     {
                         pageNumber < numPages &&
                         <Button variant="contained" onClick={changePageNext}>Next Page</Button>
