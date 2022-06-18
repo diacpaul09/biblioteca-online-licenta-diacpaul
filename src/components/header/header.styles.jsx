@@ -1,37 +1,27 @@
 import styled from 'styled-components';
 
-
 export const HeaderContainer = styled.div`
 font-family: "Fira Sans Condensed";
 padding: 10px;
 justify-content: center;
 display: flex;
 flex-direction: column;
-
 .title {
   display: flex;
   align-items: center;
   justify-content: center;
   .title-name {
     font-weight: bold;
-    cursor: pointer;
-    @media screen and (max-width: 800px) {
-
-    }
+    cursor: pointer;   
   }
-
   .logo {
     width: 60px;
     height: 100px;
-    @media screen and (max-width: 800px) {
-         
+    @media screen and (max-width: 800px) {        
       width: 40px;
-      height:80px;
-    
-    }
-    
+      height:80px;    
+    }  
   }
-
   .title-name {
     margin-left: 30px;
     @media screen and (max-width: 800px) {
@@ -45,12 +35,10 @@ flex-direction: column;
     }
   }
 }
-
 .buttons {
   display: inline-flex;
   @media screen and (max-width: 800px) {
     width:100%
-
   }
   .sign-in-and-sign-up-and-sign-out {
     justify-content: space-between;
@@ -63,20 +51,14 @@ flex-direction: column;
     @media screen and (max-width: 800px) {
       padding-left: 2px;
       padding-right: 2px;
-
     }
     .buttonstyle{
       @media screen and (max-width: 800px) {
          height:30px;
-         font-size:10px;
-        
-    
+         font-size:10px;         
       }
-
     }
   }
 }
-
-
 `;
 

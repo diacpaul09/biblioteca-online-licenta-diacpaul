@@ -63,16 +63,18 @@ const Header = ({ currentUser }) => {
 
                 <div className='button'>
                     <Link to='/'>
-                        <Button className="buttonstyle" variant="contained">Home</Button>
+                        <Button className="buttonstyle" variant="contained">
+                            Home
+                        </Button>
                     </Link>
                 </div>
                 <div className='button'>
                     <Link to='/audio-books'>
-                        <Button className="buttonstyle" variant="contained">Audio Books</Button>
+                        <Button className="buttonstyle" variant="contained">
+                            Audio Books
+                        </Button>
                     </Link>
                 </div>
-
-
                 <div className='button'>
                     <Link to={currentUser ? '/subscribe' : '/signin'}>
                         <Button className="buttonstyle" variant='contained' >
@@ -80,51 +82,48 @@ const Header = ({ currentUser }) => {
                         </Button>
                     </Link>
                 </div>
-                {currentUser ? (
-                    <div className='sign-in-and-sign-up-and-sign-out'>
-                        <div className='button'>
-
-                            <Dropdown >
-                                <Dropdown.Toggle className="buttonstyle" id="dropdown-basic">
-                                    {currentUser.displayName}
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {
-                                        userFunctions.map(item =>
-                                        (
-                                            <Dropdown.Item key={item.id} onClick={() => handleUserFunctions(item.name)}>
-                                                {item.name}
-                                            </Dropdown.Item>
-                                        )
-                                        )
-                                    }
-
-                                </Dropdown.Menu>
-                            </Dropdown>
-
+                {
+                    currentUser ? (
+                        <div className='sign-in-and-sign-up-and-sign-out'>
+                            <div className='button'>
+                                <Dropdown >
+                                    <Dropdown.Toggle className="buttonstyle" id="dropdown-basic">
+                                        {currentUser.displayName}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {
+                                            userFunctions.map(item =>
+                                            (
+                                                <Dropdown.Item key={item.id} onClick={() =>
+                                                    handleUserFunctions(item.name)}>
+                                                    {item.name}
+                                                </Dropdown.Item>
+                                            )
+                                            )
+                                        }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
                         </div>
-                    </div>
-
-                ) : (
-                    <div className='sign-in-and-sign-up-and-sign-out'>
-                        <div className='button'>
-                            <Link className='option' to='/signin'>
-                                <Button className="buttonstyle" variant='contained' >
-                                    SIGN IN
-                                </Button>
-                            </Link>
+                    ) : (
+                        <div className='sign-in-and-sign-up-and-sign-out'>
+                            <div className='button'>
+                                <Link className='option' to='/signin'>
+                                    <Button className="buttonstyle" variant='contained' >
+                                        SIGN IN
+                                    </Button>
+                                </Link>
+                            </div>
+                            <div className='button'>
+                                <Link className='option' to='/signup'>
+                                    <Button className="buttonstyle" variant='contained' >
+                                        SIGN UP
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
-                        <div className='button'>
-                            <Link className='option' to='/signup'>
-                                <Button className="buttonstyle" variant='contained' >
-                                    SIGN UP
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
-
-                )}
+                    )
+                }
 
             </div>
         </HeaderContainer >

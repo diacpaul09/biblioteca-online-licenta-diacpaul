@@ -9,8 +9,8 @@ export const BookPageContainer = styled.div`
 
   .menu-item {
     margin-left: 5vw;
-    height: 450px;
-    width: 40%;
+    height: 600px;
+    width: 500px;
     display: flex;
     align-items: center;
     justify-content: center;

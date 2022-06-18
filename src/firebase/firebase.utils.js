@@ -3,14 +3,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import { getFirestore } from "firebase/firestore/lite";
 
-const config = {
-  apiKey: "AIzaSyBpdKQnxCFH8hPGMnMbILnr7lSt_073htE",
-  authDomain: "biblioteca-online-licenta.firebaseapp.com",
-  projectId: "biblioteca-online-licenta",
-  storageBucket: "biblioteca-online-licenta.appspot.com",
-  messagingSenderId: "583797316598",
-  appId: "1:583797316598:web:564c05a98301863f23c5d7",
-};
+
 
 export const createUserProfileDocumet = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -21,9 +14,7 @@ export const createUserProfileDocumet = async (userAuth, additionalData) => {
 
   if (!snapShot.exists) {
     const { displayName, email, emailVerified } = userAuth;
-
     const createdAt = new Date();
-
     try {
       await userRef.set({
         displayName,
@@ -45,14 +36,24 @@ export const createUserProfileDocumet = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log("error creatung user", error.message);
+      console.log("error updating user", error.message);
     }
   }
 
   return userRef;
 };
 
+const config = {
+  apiKey: "AIzaSyBpdKQnxCFH8hPGMnMbILnr7lSt_073htE",
+  authDomain: "biblioteca-online-licenta.firebaseapp.com",
+  projectId: "biblioteca-online-licenta",
+  storageBucket: "biblioteca-online-licenta.appspot.com",
+  messagingSenderId: "583797316598",
+  appId: "1:583797316598:web:564c05a98301863f23c5d7",
+};
+
 firebase.initializeApp(config);
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

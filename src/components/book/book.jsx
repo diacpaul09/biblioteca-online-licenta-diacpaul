@@ -34,7 +34,7 @@ const Book = ({ id, author, title, price, image, genre, isAudible }) => {
             <div className='content' >
                 <h1 className='title'>{title}</h1>
                 <div>{author}</div>
-                <div>${price}</div>
+                
                 <div>{genre}</div>
             </div>
 
