@@ -13,7 +13,6 @@ const BookPage = ({ currentUser }) => {
 
     const location = useLocation();
     const [isUserSubscribed, setIsUserSubscribed] = useState([])
-
     const navigate = useNavigate();
     const [description, setDescription] = useState('');
     const [currentUserID, setCurrentUserID] = useState("")
@@ -26,7 +25,6 @@ const BookPage = ({ currentUser }) => {
 
     function getDescription() {
         setCurrentUserID(currentUser ? currentUser.id : null)
-
 
         ref.where("bookId", "==", bookIdDesc).onSnapshot((querySnapshot) => {
             const items = [];
