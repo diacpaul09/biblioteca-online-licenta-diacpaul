@@ -39,10 +39,15 @@ const MyBooksPage = ({ currentUser }) => {
 
     return (
         <MyBooksPageContainer>
-
             <div className="currently-reading">
                 {currentReadingBooks[0] ?
-                    currentReadingBooks.map(book => <CurrentlyReading className="book-item" key={book.id} bookId={book.bookId} pageNumber={book.currentPage} numPages={book.numberOfPages} />) :
+                    currentReadingBooks.map(book =>
+                        <CurrentlyReading
+                            className="book-item"
+                            key={book.id}
+                            bookId={book.bookId}
+                            pageNumber={book.currentPage}
+                            numPages={book.numberOfPages} />) :
                     (<div className="no-books">You currently are not reading anything.</div>)
                 }
             </div>

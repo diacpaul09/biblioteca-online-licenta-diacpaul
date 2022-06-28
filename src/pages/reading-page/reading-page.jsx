@@ -119,10 +119,7 @@ const MyBook = ({ currentUser }) => {
 
 
     function getCurrentBook() {
-
         setCurrentUserID(currentUser ? currentUser.id : null)
-
-
         if (bookId && currentUserId && !currentReadingBook[0]) {
             var querry = refCurrentlyReading.where("bookId", "==", location.state.id)
             querry = querry.where("userId", "==", currentUserId)
@@ -150,26 +147,19 @@ const MyBook = ({ currentUser }) => {
     return (
         <div className="reading-page" >
             <h1 className="title">{location.state.title}</h1>
-
             <header className="App-header">
-
                 <Document className="files" file={link} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page width={width > 800 ? 550 : 450} pageNumber={pageNumber} />
                     {width > 800 && pageNumber + 1 <= numPages ?
                         <Page width={width > 800 ? 550 : 450} pageNumber={pageNumber + 1} /> : null
-                    }
-                    
+                    }  
                 </Document>
-
-
                 <p className="page-numbers"> Page {pageNumber} of {numPages}</p>
                 <div className="buttons">
-
                     {pageNumber > 1 &&
 
                         <Button variant="contained" onClick={changePageBack}>Previous Page</Button>
                     }
-
                     {
                         pageNumber < numPages &&
                         <Button variant="contained" onClick={changePageNext}>Next Page</Button>

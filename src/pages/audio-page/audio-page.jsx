@@ -7,6 +7,7 @@ const AudioPage = () => {
 
     const location = useLocation();
 
+    const source = 'https://firebasestorage.googleapis.com/v0/b/biblioteca-online-licenta.appspot.com/o/audioContent%2Ftest.mp3?alt=media&token=a41ac22a-1765-42e8-9cb4-1d2f88be723f';
 
     return (
         <div className="audio-page">
@@ -14,10 +15,9 @@ const AudioPage = () => {
             <div className="audio-player">
 
                 <ReactAudioPlayer
-                    src={'https://firebasestorage.googleapis.com/v0/b/biblioteca-online-licenta.appspot.com/o/audioContent%2Ftest.mp3?alt=media&token=a41ac22a-1765-42e8-9cb4-1d2f88be723f'}
+                    src={source}
                     autoPlay={false}
                     controls
-
                 />
             </div>
         </div>

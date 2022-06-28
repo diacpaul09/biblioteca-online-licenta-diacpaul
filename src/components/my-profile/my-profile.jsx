@@ -19,11 +19,7 @@ const MyProfile = ({ currentUser }) => {
     function getSubs() {
 
         setCurrentUserID(currentUser ? currentUser.id : null)
-
         if (currentUserID) {
-
-
-
             refSub.where("userId", "==", currentUserID).onSnapshot((querySnapshot) => {
                 const items = [];
 
@@ -50,18 +46,11 @@ const MyProfile = ({ currentUser }) => {
                         })
                     }
                 }
-
-
             });
         }
-
-
     }
-
-
     useEffect(() => {
         getSubs();
-
         // eslint-disable-next-line
     }, [currentUserID]);
 
@@ -78,19 +67,16 @@ const MyProfile = ({ currentUser }) => {
                         Email:
                         <Input className="input" value={currentUser.email} />
                     </div>
-                </div> :
-                <div>
-
                 </div>
+                :
+                null
             }
-
             {
                 isUserSubscribed[0] ?
                     <div className="sub-type">
                         You currently are subscribed to {isUserSubscribed[0].subType} plan.
                     </div> : <div className="sub-type"> You are not subscribed to any plan.</div>
             }
-
             {
                 isUserSubscribed[0] ?
                     <div className="days-to-payment">
@@ -98,9 +84,10 @@ const MyProfile = ({ currentUser }) => {
                             isUserSubscribed[0].subType === "Ultra-Premium" ?
                                 90 - daysToPayment :
                                 30 - daysToPayment
-
                         } />
-                    </div> : <div></div>
+                    </div>
+                    :
+                    null
             }
         </div>
 

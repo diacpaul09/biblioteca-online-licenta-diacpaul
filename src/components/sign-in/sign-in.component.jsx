@@ -16,18 +16,13 @@ class SignIn extends React.Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-
         const { email, password } = this.state;
-
         try {
             await auth.signInWithEmailAndPassword(email, password);
             this.setState({ email: '', password: '' })
-
         } catch (error) {
-
             const code = error.code;
             console.log(code)
-
             switch (code) {
                 case "auth/user-not-found":
                     return (window.alert("User not found"))
@@ -35,9 +30,6 @@ class SignIn extends React.Component {
                     return (window.alert("Wrong password for this username"))
                 default: return;
             }
-            
-
-
         }
     }
 
@@ -52,42 +44,21 @@ class SignIn extends React.Component {
             <div className="sign-in">
                 <h2>I already have an account</h2>
                 <span>Sign in with your email and password</span>
-
                 <form autoComplete="off" onSubmit={this.handleSubmit}>
-                    <FormInput
-                        name="email"
-                        type="email"
-                        value={this.state.email}
-                        required
-                        label="email"
-                        handleChange={this.handleChange} />
-
-                    <FormInput
-                        name="password"
-                        type="password"
-                        value={this.state.password}
-                        required
-                        label="password"
-                        handleChange={this.handleChange} />
-
-
+                    <FormInput name="email" type="email" value={this.state.email} required label="email"handleChange={this.handleChange} />
+                    <FormInput name="password" type="password" value={this.state.password} required label="password" handleChange={this.handleChange} />
                     <div className="buttons">
                         <Button variant="contained" type="submit">
                             Sign In
                         </Button>
-                        <Button variant="contained" onClick={() => {
-                            this.setState({ email: '', password: '' })
-                                ; signInWithGoogle()
-                        }}>
+                        <Button variant="contained" onClick={() => {this.setState({ email: '', password: '' }); signInWithGoogle()}}>
                             Sign in with Google
                         </Button>
                     </div>
-
                     <div className="no-account">
                         <Link to={'/signup'}>I don't have an account.</Link>
                     </div>
                 </form>
-
             </div>
         )
     }

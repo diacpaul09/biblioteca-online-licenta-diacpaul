@@ -9,11 +9,8 @@ const CurrentlyReading = ({ bookId, pageNumber, numPages }) => {
 
 
     const bookRef = firebase.firestore().collection("books");
-
     const [books, setBooks] = useState([])
-
     const navigate = useNavigate();
-
     function getBooks() {
 
         bookRef.onSnapshot((querySnapshot) => {
@@ -26,22 +23,17 @@ const CurrentlyReading = ({ bookId, pageNumber, numPages }) => {
             setBooks(items)
         });
     }
-
     useEffect(() => {
         getBooks();
         // eslint-disable-next-line
     }, [])
 
-
-
     return (
         <CurrentlyReadingContainer>
             <div>{
-
                 books[0] ?
                     < div className="book-info" >
                         <div className="menu-item">
-
                             <div
                                 className='background-image'
                                 style={{
@@ -55,14 +47,10 @@ const CurrentlyReading = ({ bookId, pageNumber, numPages }) => {
                             <div className="genre">{books[0].genre}</div>
                             <div className="current-page">Current page: {pageNumber} of {numPages}</div>
                             <div className="button">
-
                                 <Button variant="contained" onClick={() => navigate(`/reading/${bookId}`,
                                     { state: { id: bookId, title: books[0].title } })}> Continue reading</Button>
-
                             </div>
                         </div>
-
-
                     </div >
                     : "Loading"}</div>
         </CurrentlyReadingContainer>
